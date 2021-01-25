@@ -1,0 +1,48 @@
+﻿@model IEnumerable<Money_exchange.Models.Operation>
+@{
+    ViewBag.Title = "All exchange";
+}
+    <a asp-action="Create">Create Operation</a>
+<br/>
+
+<table class="table">
+    <tr>
+        <th>
+            <a asp-action="Oper" asp-route-sortOrder="@ViewBag.DateSort">
+                Time
+            </a>
+        </th>
+        <th>
+            <a asp-action="Oper" asp-route-sortOrder="@ViewBag.FromAmountSort">
+                FromAmount
+            </a>
+        </th>
+        <th>
+            <a asp-action="Oper" asp-route-sortOrder="@ViewBag.FromCurrencySort">
+                FromCurrency
+            </a>
+        </th>
+        <th>
+            <a asp-action="Oper" asp-route-sortOrder="@ViewBag.ToAmountSort">
+                ToAmount
+            </a>
+        </th>
+        <th>
+            <a asp-action="Oper" asp-route-sortOrder="@ViewBag.ToCurrencySort">
+                ToCurrency
+            </a>
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+<tr>
+    <td>@item.Date</td>
+    <td>@item.FromAmount</td>
+    <td>@item.FromCurrency</td>
+    <td>@item.ToAmount</td>
+    <td>@item.ToCurrency</td>
+    <td><a asp-action="Delete" asp-controller="Home" method="post" asp-route-id="@item.Id">Delate</a></td>
+    
+</tr>
+    }
+</table>

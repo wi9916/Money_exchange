@@ -1,0 +1,104 @@
+﻿@model Money_exchange.Models.Operation
+@{
+    ViewData["Title"] = "Home Page";
+}
+<div>
+    <form>
+        <input name="FromAmount" class='oneInput' id='oneInput' onkeyup='Change("one","two")'>
+        <select name="FromCurrency" class='oneMoney' id='oneMoney' onChange='Change("one","two")'>
+            <option>USD</option>
+            <option>EUR</option>
+            <option>GBP</option>
+            <option>CHF</option>
+        </select>
+        <big><=></big>
+        <input name="ToAmount" class='twoInput' id='twoInput' onkeyup='Change("two","one")'>
+        <select name="ToCurrency" class='twoMoney' id='twoMoney' onChange='Change("two","one")'>
+            <option>EUR</option>
+            <option>USD</option>
+            <option>GBP</option>
+            <option>CHF</option>
+        </select>
+        <br />
+        <button>Create</button>        
+    </form>
+    <button onclick="switchClik(); return false;">Exchange rate</button>
+    <br/>
+    <h id="chengeText" name="chengeText"></h>
+
+
+</div>
+
+<script type="text/javascript">    
+    var url = "https://api.exchangeratesapi.io/latest?base="
+    let element = document.getElementById('chengeText');
+
+    function switchClik() {
+        var FromCurrency = document.getElementById('oneMoney').value;
+        var urlNew = url + FromCurrency;
+
+        fetch(urlNew)
+            .then((response) => {
+                return response.json();
+            })
+            .then((data) => {
+                var toCurrency = document.getElementById('twoMoney').value;
+                var cursNew = 1;
+
+                switch (toCurrency) {
+                    case 'USD':
+                        cursNew = data.rates.USD
+                        break;
+                    case 'EUR':
+                        cursNew = data.rates.EUR
+                        break;
+                    case 'GBP':
+                        cursNew = data.rates.GBP
+                        break;
+                    case 'CHF':
+                        cursNew = data.rates.CHF
+                        break;
+                }
+                element.innerHTML = '1 ' + FromCurrency + ' = ' + cursNew + ' ' + toCurrency;
+            });
+    }
+
+    function Change(id1, id2) {
+        var urlNew = url + document.getElementById(id1 + 'Money').value
+
+        fetch(urlNew)
+            .then((response) => {
+                return response.json();
+            })
+            .then((data) => {
+                var curs = document.getElementById(id2 + 'Money').value;
+                var cursNew = 1;
+                switch (curs) {
+                    case 'USD':
+                        cursNew = data.rates.USD
+                        break;
+                    case 'EUR':
+                        cursNew = data.rates.EUR
+                        break;
+                    case 'GBP':
+                        cursNew = data.rates.GBP
+                        break;
+                    case 'CHF':
+                        cursNew = data.rates.CHF
+                        break;
+                }
+                var num = cursNew * document.getElementById(id1 + 'Input').value;
+
+                document.getElementById(id2 + 'Input').value = num.toFixed(2);
+            });
+    }
+//                //alert(data.rates.CAD);
+
+</script>
+
+
+
+
+
+
+

@@ -1,0 +1,22 @@
+﻿@model Money_exchange.Models.Operation
+<form asp-action="create" asp-controller="home">
+    <div class="form-group">
+        <label asp-for="FromCurrency" class="control-label">FromCurrency</label>
+        <input type="text" asp-for="FromCurrency" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="FromAmount" class="control-label">FromAmoun</label>
+        <input type="number" asp-for="FromAmount" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="ToCurrency" class="control-label">ToCurrency</label>
+        <input type="text" asp-for="ToCurrency" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="ToAmount" class="control-label">ToAmoun</label>
+        <input type="number" asp-for="ToAmount" class="form-control" />
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-default" />
+    </div>
+</form>
